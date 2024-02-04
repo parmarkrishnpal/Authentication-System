@@ -2,14 +2,11 @@ const mongoose = require("mongoose");
 
 async function connectToMongoDB() {
   try {
-    await mongoose.connect(
-      "mongodb+srv://manik8331:SBWIE6btciUDTrdz@cluster0.7nyy8xz.mongodb.net/authentication_system",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-      }
-    );
+    await mongoose.connect(process.env.conn_uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
     console.log(`MongoDB Connected: ${mongoose.connection.host}`);
   } catch (error) {
     console.error(error.message);

@@ -1,9 +1,5 @@
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../model/user"); // Import your User model
-// const { JWT_SECRET } = require("./config"); // Import your JWT secret
-const JWT_SECRET =
-  "sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk";
+const User = require("../model/user");
 
 async function register(req, res) {
   const { username, password: plainTextPassword } = req.body;

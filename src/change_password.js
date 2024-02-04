@@ -1,9 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../model/user"); // Import your User model
-// const { JWT_SECRET } = require("./config"); // Import your JWT secret
-const JWT_SECRET =
-  "sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk";
+const User = require("../model/user");
+const JWT_SECRET = process.env.JWT_SECRET;
 
 async function change_password(req, res) {
   const { token, newpassword: plainTextPassword } = req.body;

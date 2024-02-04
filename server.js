@@ -1,9 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const db = require("./db/conn");
 const swaggerUI = require("swagger-ui-express");
-const swaggerJsDoc = require("swagger-jsdoc"); 
+const swaggerJsDoc = require("swagger-jsdoc");
 
 const options = {
   definition: {
@@ -16,7 +17,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:9999",
+        url: "http://localhost:5003",
         description: "Main server",
       },
     ],
@@ -27,26 +28,6 @@ const options = {
 const specs = swaggerJsDoc(options);
 
 const app = express();
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - username
- *         - password
- *       properties:
- *         id:
- *           type: string
- *           description: The auto-generated id of the book
- *         username:
- *           type: string
- *           description: The username  which is unique to every user
- *         password:
- *           type: string
- *           description: Password to validate user
- */
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use("/", express.static(path.join(__dirname, "static")));
@@ -71,6 +52,24 @@ app.post("/api/change-password", change_password);
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The username  which is unique to every user
+ *         password:
+ *           type: string
+ *           description: Password to validate user
+ */
+
+/**
+ * @swagger
  * /api/change-password:
  *   post:
  *     summary: Change password
@@ -85,8 +84,6 @@ app.post("/api/change-password", change_password);
  *       200:
  *         description: Password Changed Successfully.
  */
-
-
 
 /**
  * @swagger
@@ -104,8 +101,6 @@ app.post("/api/change-password", change_password);
  *       200:
  *         description: The User was successfully logged in.
  */
-
-
 
 /**
  * @swagger
@@ -130,12 +125,10 @@ app.post("/api/change-password", change_password);
  *         description: Username already exists
  */
 
-
-
 let port = process.env.PORT;
 if (port == null || port == "") {
-  port = 9999;
+  port = 5003;
 }
 app.listen(port, () => {
-  console.log("Server started successfully");
+  console.log("Server started successfully on port: ", port);
 });
