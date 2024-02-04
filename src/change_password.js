@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../model/user");
+const User = require("../db/model/user");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 async function change_password(req, res) {

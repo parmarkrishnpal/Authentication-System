@@ -7,7 +7,7 @@ async function connectToMongoDB() {
       useUnifiedTopology: true,
       useCreateIndex: true,
     });
-    console.log(`MongoDB Connected: ${mongoose.connection.host}`);
+    console.log(`Successfully connected to database`);
   } catch (error) {
     console.error(error.message);
   }
