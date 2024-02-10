@@ -41,8 +41,8 @@ const register = require("./src/register");
 const change_password = require("./src/change_password");
 
 //Calling Methods
-app.post("/", register);
-app.post("/", login);
+app.use("/", register);
+app.use("/", login);
 app.use("/", change_password);
 
 /**
