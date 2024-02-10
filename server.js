@@ -10,7 +10,7 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Register-Login-JWT",
+      title: "Authentication System",
       version: "1.0.0",
       description:
         "A simple register-login page which authenticate users with JWT",
@@ -47,7 +47,7 @@ app.post("/api/change-password", change_password);
  * @swagger
  * tags:
  *   name: Users
- *   description: User Authentication  with JWT
+ *   description: Authentication System
  */
 
 /**
@@ -70,9 +70,9 @@ app.post("/api/change-password", change_password);
 
 /**
  * @swagger
- * /api/change-password:
+ * /api/register:
  *   post:
- *     summary: Change password
+ *     summary: Create a new user
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -82,7 +82,13 @@ app.post("/api/change-password", change_password);
  *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
- *         description: Password Changed Successfully.
+ *         description: The User was successfully registered
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       11000:
+ *         description: User Email already exists
  */
 
 /**
@@ -104,9 +110,9 @@ app.post("/api/change-password", change_password);
 
 /**
  * @swagger
- * /api/register:
+ * /api/change-password:
  *   post:
- *     summary: Create a new user
+ *     summary: Change password
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -116,13 +122,7 @@ app.post("/api/change-password", change_password);
  *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
- *         description: The User was successfully registered
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       11000:
- *         description: user_email already exists
+ *         description: Password Changed Successfully.
  */
 
 let port = process.env.PORT;
