@@ -57,12 +57,12 @@ app.post("/api/change-password", change_password);
  *     User:
  *       type: object
  *       required:
- *         - username
+ *         - user_email
  *         - password
  *       properties:
- *         username:
+ *         user_email:
  *           type: string
- *           description: The username  which is unique to every user
+ *           description: The user_email  which is unique to every user
  *         password:
  *           type: string
  *           description: Password to validate user
@@ -122,7 +122,7 @@ app.post("/api/change-password", change_password);
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       11000:
- *         description: Username already exists
+ *         description: user_email already exists
  */
 
 let port = process.env.PORT;

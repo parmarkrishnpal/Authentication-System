@@ -1,26 +1,26 @@
 const bcrypt = require("bcryptjs");
 const User = require("../db/model/user");
+const { validatePassword } = require("../comm_functions/password_validation");
+const { validateEmail } = require("../comm_functions/email_validation");
 
-function validateInput(username, plainTextPassword) {
-  if (!username || typeof username !== "string") {
-    return "Invalid username";
+function validateInput(user_email, plainTextPassword) {
+  const emailValidationResult = validateEmail(user_email);
+  if (emailValidationResult) {
+    return emailValidationResult;
   }
 
-  if (!plainTextPassword || typeof plainTextPassword !== "string") {
-    return "Invalid password";
-  }
-
-  if (plainTextPassword.length < 6) {
-    return "Password too small. Should be at least 6 characters";
+  const passwordValidationResult = validatePassword(plainTextPassword);
+  if (passwordValidationResult) {
+    return passwordValidationResult;
   }
 
   return null; // No validation errors
 }
 
 async function register(req, res) {
-  const { username, password: plainTextPassword } = req.body;
+  const { user_email, password: plainTextPassword } = req.body;
 
-  const validationError = validateInput(username, plainTextPassword);
+  const validationError = validateInput(user_email, plainTextPassword);
   if (validationError) {
     return res.status(400).json({
       status: "error",
@@ -32,7 +32,7 @@ async function register(req, res) {
 
   try {
     const createdUser = await User.create({
-      username,
+      user_email,
       password,
     });
 
@@ -44,10 +44,9 @@ async function register(req, res) {
     console.error("Error creating user:", error);
 
     if (error.code === 11000) {
-      // duplicate key
       return res.status(400).json({
         status: "error",
-        error: "Username already in use",
+        error: "You have already registered",
       });
     }
     return res.status(500).json({
