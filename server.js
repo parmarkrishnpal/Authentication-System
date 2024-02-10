@@ -41,9 +41,9 @@ const register = require("./src/register");
 const change_password = require("./src/change_password");
 
 //Calling Methods
-app.use("/", register);
-app.use("/", login);
-app.use("/", change_password);
+app.use("/api", register);
+app.use("/api", login);
+app.use("/api", change_password);
 
 /**
  * @swagger

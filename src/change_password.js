@@ -6,7 +6,7 @@ const auth = require("../comm_functions/auth");
 const { validatePassword } = require("../comm_functions/password_validation");
 
 const app = express();
-app.post("/api/change-password", auth, async (req, res) => {
+app.post("/change-password", auth, async (req, res) => {
   const { old_password, new_password } = req.body;
 
   try {

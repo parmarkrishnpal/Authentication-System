@@ -20,7 +20,7 @@ function validateInput(user_email, plainTextPassword) {
 
 const app = express();
 
-app.post("/api/change-password", async (req, res) => {
+app.post("/change-password", async (req, res) => {
   {
     const { user_email, password: plainTextPassword } = req.body;
 

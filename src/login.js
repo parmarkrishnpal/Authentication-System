@@ -5,7 +5,7 @@ const express = require("express");
 const { validateEmail } = require("../comm_functions/email_validation");
 
 const app = express();
-app.post("/api/login", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { user_email, password } = req.body;
 
   const emailValidationResult = validateEmail(user_email);
