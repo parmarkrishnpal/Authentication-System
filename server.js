@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const db = require("./db/conn");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
+const cookieParser = require("cookie-parser");
 
 const options = {
   definition: {
@@ -32,16 +33,17 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use("/", express.static(path.join(__dirname, "static")));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //Importing API's
-const { login } = require("./src/login");
-const { register } = require("./src/register");
-const { change_password } = require("./src/change_password");
+const login = require("./src/login");
+const register = require("./src/register");
+const change_password = require("./src/change_password");
 
 //Calling Methods
-app.post("/api/register", register);
-app.post("/api/login", login);
-app.post("/api/change-password", change_password);
+app.post("/", register);
+app.post("/", login);
+app.use("/", change_password);
 
 /**
  * @swagger
@@ -119,7 +121,17 @@ app.post("/api/change-password", change_password);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             type: object
+ *             required:
+ *               - old_password
+ *               - new_password
+ *             properties:
+ *               old_password:
+ *                 type: string
+ *                 description: The current password of the user
+ *               new_password:
+ *                 type: string
+ *                 description: The new password to set for the user
  *     responses:
  *       200:
  *         description: Password Changed Successfully.

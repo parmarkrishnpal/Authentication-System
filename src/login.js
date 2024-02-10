@@ -1,9 +1,11 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../db/model/user");
-const validateEmail = require("../comm_functions/email_validation");
+const express = require("express");
+const { validateEmail } = require("../comm_functions/email_validation");
 
-async function login(req, res) {
+const app = express();
+app.post("/api/login", async (req, res) => {
   const { user_email, password } = req.body;
 
   const emailValidationResult = validateEmail(user_email);
@@ -66,6 +68,6 @@ async function login(req, res) {
           : error.message,
     });
   }
-}
+});
 
-module.exports = { login };
+module.exports = app;
