@@ -1,4 +1,4 @@
-Project Name: Register-Login-JWT
+Project Name: Authentication System
 
 Clone the Repo: https://github.com/parmarkrishnpal/Register-Login-JWT.git
 
